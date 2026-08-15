@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.6.0] - 2026-08-14
+
+### Added
+
+- **Television channels dataset.** New `TelevisionChannel` resource exposing Colombian TV channels with their name, city, streaming URL and whether the channel is currently active. Available at `GET /api/v1/TelevisionChannel` with the standard shapes (`/{id}`, `/name/{name}`, `/search/{keyword}`, `/pagedList`, plus sorting), and a `GET /api/v1/City/{id}/televisionchannels` sub-resource to list the channels of a given city.
+
+[1.6.0]: https://github.com/Mteheran/api-colombia/releases/tag/v1.6.0
+
 ## [1.5.0] - 2026-08-01
 
 ### Added

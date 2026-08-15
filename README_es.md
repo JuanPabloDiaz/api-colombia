@@ -29,6 +29,7 @@ Aprende a usar API-Colombia con videos detallados que te explican la API paso a 
   - Mapas.
   - Centros urbanos (cabeceras municipales y centros poblados).
   - Instituciones de Educación Superior (IES).
+  - Canales de televisión.
 * Documentación Swagger.
 * Servidor MCP (Model Context Protocol) para agentes de IA — ver [Servidor MCP](#servidor-mcp) abajo.
 * No requiere autenticación.

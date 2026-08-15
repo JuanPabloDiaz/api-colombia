@@ -17,6 +17,7 @@
         public virtual ICollection<Radio> Radios { get; set; }
         public virtual ICollection<UrbanCenter> UrbanCenters { get; set; }
         public virtual ICollection<HigherEducationInstitution> HigherEducationInstitutions { get; set; }
+        public virtual ICollection<TelevisionChannel> TelevisionChannels { get; set; }
 
     }
 }

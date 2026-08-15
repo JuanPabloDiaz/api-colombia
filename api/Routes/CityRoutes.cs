@@ -159,6 +159,32 @@ namespace api.Routes
                 summary: HigherEducationInstitutionEndpoint.MESSAGE_HEI_BYCITY_SUMMARY,
                 description: HigherEducationInstitutionEndpoint.MESSAGE_HEI_BYCITY_DESCRIPTION
                 ));
+
+            group.MapGet("{id}/televisionchannels", async (int id, DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
+            {
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var queryChannels = db.TelevisionChannels.Where(p => p.CityId == id).AsQueryable();
+                (queryChannels, var isValidSort) = ApplySorting(queryChannels, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var channels = await queryChannels.ToListAsync();
+                return Results.Ok(channels);
+            })
+            .Produces<List<TelevisionChannel>?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: TelevisionChannelEndpoint.MESSAGE_TVCHANNEL_BYCITY_SUMMARY,
+                description: TelevisionChannelEndpoint.MESSAGE_TVCHANNEL_BYCITY_DESCRIPTION
+                ));
         }
     }
 }

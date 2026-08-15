@@ -360,6 +360,22 @@
                 public const string MESSAGE_HEI_BYCITY_SUMMARY = "Higher education institutions by city id";
                 public const string MESSAGE_HEI_BYCITY_DESCRIPTION = "This endpoint returns a list of higher education institutions located in the city with the provided id";
             }
+
+            public struct TelevisionChannelEndpoint
+            {
+                public const string MESSAGE_TVCHANNEL_LIST_SUMMARY = "List of television channels in Colombia";
+                public const string MESSAGE_TVCHANNEL_LIST_DESCRIPTION = "This endpoint returns television channels in Colombia including name, city, url and whether the channel is currently active.";
+                public const string MESSAGE_TVCHANNEL_BYID_SUMMARY = "Television channel information by Id";
+                public const string MESSAGE_TVCHANNEL_BYID_DESCRIPTION = "This endpoint returns the television channel information with the provided id";
+                public const string MESSAGE_TVCHANNEL_BYNAME_SUMMARY = "Television channel information by name";
+                public const string MESSAGE_TVCHANNEL_BYNAME_DESCRIPTION = "This endpoint returns a list of television channels with the provided name";
+                public const string MESSAGE_TVCHANNEL_SEARCH_SUMMARY = "Search television channels by keyword";
+                public const string MESSAGE_TVCHANNEL_SEARCH_DESCRIPTION = "This endpoint returns a list of television channels where fields like name match the provided keyword";
+                public const string MESSAGE_TVCHANNEL_PAGEDLIST_SUMMARY = "List of television channels using pagination";
+                public const string MESSAGE_TVCHANNEL_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of television channels using pagination including page, pagesize, total records and data, example api/v1/televisionchannel/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_TVCHANNEL_BYCITY_SUMMARY = "Television channels by city id";
+                public const string MESSAGE_TVCHANNEL_BYCITY_DESCRIPTION = "This endpoint returns a list of television channels located in the city with the provided id";
+            }
         }
     }
 }
