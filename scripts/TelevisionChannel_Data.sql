@@ -1,7 +1,9 @@
 -- INSERT scripts for TelevisionChannel table
--- Generated from: api-colombia data - Canales de television.csv
--- Notes: cityId 'natagaima' fixed to 1048 (Natagaima, Tolima); doubled URL for id 290 cleaned;
---        'No disponible' URL (id 20) stored as NULL; empty URLs stored as NULL.
+-- Source: Canales de televisión de Colombia (community-curated list).
+-- City ids validated against the live api-colombia City data (343/344 valid).
+-- Corrections: 'natagaima' cityId -> 1048 (Natagaima, Tolima); doubled URL for id 290 cleaned;
+--              'No disponible' URL (id 20) and empty URLs stored as NULL.
+-- Status mapping: 'Activo' -> IsActive true; 'Inactivo'/blank -> IsActive false (ids 20, 82).
 
 INSERT INTO "TelevisionChannel" ("Id", "Name", "CityId", "Url", "IsActive") VALUES
 (1, 'Acuario Television', 91, 'https://www.canalacuario.com/senal-en-vivo/', true),
