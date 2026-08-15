@@ -121,10 +121,14 @@
             <div class="section-github">
               <a href="https://github.com/Mteheran/api-colombia"
                 target="_blank" rel="noopener noreferrer"
-                aria-label="Repositorio en GitHub (263 estrellas) - abre en nueva pestaña">
+                aria-label="Repositorio en GitHub (352 estrellas) - abre en nueva pestaña">
                 <img id="githubIcon" src="/assets/icons/github-icon.svg"
                   alt="" aria-hidden="true" />
-                <span aria-hidden="true">263</span>
+                <svg class="star-icon" viewBox="0 0 16 16" width="16" height="16"
+                  aria-hidden="true" focusable="false">
+                  <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
+                </svg>
+                <span aria-hidden="true">352</span>
               </a>
             </div>
             <div class="language-selector" id="languageSelector" role="group" aria-label="Selector de idioma">
@@ -218,10 +222,14 @@
                 <div class="section-githubModal">
                   <a href="https://github.com/Mteheran/api-colombia"
                     target="_blank" rel="noopener noreferrer"
-                    aria-label="Ver repositorio en GitHub, 219 estrellas">
+                    aria-label="Ver repositorio en GitHub, 352 estrellas">
                     <img id="githubIcon2" src="/assets/icons/github-icon.svg"
                       alt="" aria-hidden="true" />
-                    <span aria-hidden="true">219</span>
+                    <svg class="star-icon" viewBox="0 0 16 16" width="16" height="16"
+                      aria-hidden="true" focusable="false">
+                      <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" />
+                    </svg>
+                    <span aria-hidden="true">352</span>
                   </a>
                 </div>
                 <div class="botonModo">
@@ -368,26 +376,6 @@
                   target="_blank" rel="noopener"
                   class="card-button">
                   Obtener Atracciones
-                  <img src="./assets/icons/external-link-icon.svg"
-                    alt="" aria-hidden="true"
-                    style="width: 16px; height: 16px; margin-left: 2px" />
-                </a>
-              </div>
-            </article>
-            <article class="caja uno">
-              <img src="./assets/crown-decorative.svg"
-                alt="" role="presentation" aria-hidden="true" />
-              <h2 data-i18n-key="featureUrbanCenter">Centros Urbanos</h2>
-              <div class="card-description">
-                <p data-i18n-key="featureUrbanCenterDesc">
-                  Cabeceras municipales y centros poblados de Colombia con su ubicación geográfica y códigos.
-                </p>
-              </div>
-              <div class="card-button-container">
-                <a data-i18n-key="featuregetUrbanCenter"
-                  href="https://api-colombia.com/api/v1/UrbanCenter" target="_blank"
-                  rel="noopener" class="card-button">
-                  Obtener Centros Urbanos
                   <img src="./assets/icons/external-link-icon.svg"
                     alt="" aria-hidden="true"
                     style="width: 16px; height: 16px; margin-left: 2px" />
@@ -709,9 +697,18 @@
           <span data-i18n-key="madeWith"> Hecho con el </span>
 
           <div class="hearts">
-            <img src="./assets/yellow-heart.png" alt="corazon amarrillo" />
-            <img src="./assets/blue-heart.png" alt="corazon azul" />
-            <img src="./assets/red-heart.png" alt="corazon rojo" />
+            <svg class="heart-svg heart-yellow" viewBox="0 0 24 24" role="img"
+              aria-label="corazon amarillo">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg class="heart-svg heart-blue" viewBox="0 0 24 24" role="img"
+              aria-label="corazon azul">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg class="heart-svg heart-red" viewBox="0 0 24 24" role="img"
+              aria-label="corazon rojo">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
           </div>
         </div>
       </footer>
