@@ -72,10 +72,10 @@ namespace api.Routes
 
             group.MapGet("name/{name}", (string name, DBContext db) =>
             {
-                var search = name.Trim().ToUpperInvariant();
+                var search = name.Trim().ToUpper();
                 var institutions = db.HigherEducationInstitutions
                     .Include(p => p.City)
-                    .Where(x => (x.Name ?? string.Empty).ToUpperInvariant().Contains(search))
+                    .Where(x => x.Name.ToUpper().Contains(search))
                     .ToList();
                 return Results.Ok(institutions);
             })
