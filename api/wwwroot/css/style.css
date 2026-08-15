@@ -117,6 +117,12 @@ body {
   padding: 6px;
 }
 
+.star-icon {
+  fill: #ffcd00;
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
 .section-github p {
   background-color: white;
   border-radius: 5px;
@@ -583,11 +589,13 @@ body {
   background-color: #c8102e;
   padding: 0.75em 1.75em;
   border-radius: 2rem;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.video-button:hover {
-  background-color: #a30d25;
+.video-button:hover,
+.video-button:focus-visible {
+  background-color: #ffcd00;
+  color: #22292a;
   transform: translateY(-2px);
 }
 
@@ -809,6 +817,7 @@ body {
 }
 
 footer {
+  position: relative;
   background-color: #fdfdfd;
   text-align: center;
   margin-top: 1em;
@@ -816,8 +825,13 @@ footer {
   flex-direction: row;
   padding: 0 1.4em;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 13px;
+}
+
+footer #Logo-API {
+  position: absolute;
+  left: 1.4em;
 }
 
 footer .made {
@@ -839,6 +853,23 @@ footer .hearts > img {
   width: 25px;
   height: 25px;
   object-fit: contain;
+}
+
+footer .hearts > .heart-svg {
+  width: 25px;
+  height: 25px;
+}
+
+footer .hearts > .heart-yellow {
+  fill: #ffcd00;
+}
+
+footer .hearts > .heart-blue {
+  fill: #2c4ec1;
+}
+
+footer .hearts > .heart-red {
+  fill: #ff4141;
 }
 
 .menuicon {
