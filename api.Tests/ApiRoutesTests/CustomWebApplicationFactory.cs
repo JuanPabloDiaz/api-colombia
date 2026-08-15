@@ -743,6 +743,39 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             });
         }
 
+        if (!dbContext.TelevisionChannels.Any())
+        {
+            dbContext.Add(new TelevisionChannel
+            {
+                Id = 1,
+                Name = "Sample TV Channel",
+                CityId = city1.Id,
+                City = city1,
+                Url = new Uri("https://example.com/tv"),
+                IsActive = true,
+            });
+
+            dbContext.Add(new TelevisionChannel
+            {
+                Id = 2,
+                Name = "Another TV Channel",
+                CityId = city1.Id,
+                City = city1,
+                Url = null!,
+                IsActive = false,
+            });
+
+            dbContext.Add(new TelevisionChannel
+            {
+                Id = 3,
+                Name = "Third TV Channel",
+                CityId = city2.Id,
+                City = city2,
+                Url = new Uri("https://example.com/tv3"),
+                IsActive = true,
+            });
+        }
+
         dbContext.SaveChanges();
     }
 

@@ -29,6 +29,7 @@ public class DBContext : DbContext
     public DbSet<UrbanCenter> UrbanCenters { get; set; }
     public DbSet<RequestMetricRollup> RequestMetricRollups { get; set; }
     public DbSet<HigherEducationInstitution> HigherEducationInstitutions { get; set; }
+    public DbSet<TelevisionChannel> TelevisionChannels { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -61,6 +62,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new UrbanCenterConfig());
         builder.ApplyConfiguration(new RequestMetricRollupConfig());
         builder.ApplyConfiguration(new HigherEducationInstitutionConfig());
+        builder.ApplyConfiguration(new TelevisionChannelConfig());
 
         base.OnModelCreating(builder);
     }

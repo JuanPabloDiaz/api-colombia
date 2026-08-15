@@ -163,6 +163,7 @@ HeritageCityRoutes.RegisterHeritageCityAPI(app);
 PostalCodeRoutes.RegisterPostalCodeAPI(app);
 UrbanCenterRoutes.RegisterUrbanCenterAPI(app);
 HigherEducationInstitutionRoutes.RegisterHigherEducationInstitutionAPI(app);
+TelevisionChannelRoutes.RegisterTelevisionChannelAPI(app);
 
 // Record request analytics as the outermost middleware so its counting stream
 // wraps the compressed output and measures the actual bytes leaving the server.

@@ -1,25 +1,25 @@
-﻿using api.Models;
+using api.Models;
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using static api.Utils.Functions;
 using static api.Utils.Messages.EndpointMetadata;
-using HEIMetadataMessages = api.Utils.Messages.EndpointMetadata.HigherEducationInstitutionEndpoint;
+using TVChannelMetadataMessages = api.Utils.Messages.EndpointMetadata.TelevisionChannelEndpoint;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Routes
 {
-    public static class HigherEducationInstitutionRoutes
+    public static class TelevisionChannelRoutes
     {
-        public static void RegisterHigherEducationInstitutionAPI(WebApplication app)
+        public static void RegisterTelevisionChannelAPI(WebApplication app)
         {
-            const string API_HEI_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.HIGHER_EDUCATION_INSTITUTION_ROUTE}";
-            const string API_HEI_TAG = "HigherEducationInstitution";
+            const string API_TVCHANNEL_COMPLETE = $"{Util.API_ROUTE}{Util.API_VERSION}{Util.TELEVISION_CHANNEL_ROUTE}";
+            const string API_TVCHANNEL_TAG = "TelevisionChannel";
 
             // Group and tags usage
             IEndpointRouteBuilder group = app
-                .MapGroup(API_HEI_COMPLETE)
-                .WithTags(API_HEI_TAG)
+                .MapGroup(API_TVCHANNEL_COMPLETE)
+                .WithTags(API_TVCHANNEL_TAG)
                 .CacheOutput()
                 .RequireRateLimiting(Util.PublicRateLimitPolicy);
 
@@ -27,24 +27,24 @@ namespace api.Routes
                 [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
                 [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
             {
-                var queryInstitutions = db.HigherEducationInstitutions
+                var queryChannels = db.TelevisionChannels
                     .Include(p => p.City)
                     .AsQueryable();
 
-                (queryInstitutions, var isValidSort) = ApplySorting(queryInstitutions, sortBy, sortDirection);
+                (queryChannels, var isValidSort) = ApplySorting(queryChannels, sortBy, sortDirection);
 
                 if (!isValidSort)
                 {
                     return Results.BadRequest(RequestMessages.BadRequest);
                 }
 
-                var listInstitutions = await queryInstitutions.ToListAsync();
-                return Results.Ok(listInstitutions);
+                var listChannels = await queryChannels.ToListAsync();
+                return Results.Ok(listChannels);
             })
-            .Produces<List<HigherEducationInstitution>?>(200)
+            .Produces<List<TelevisionChannel>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: HEIMetadataMessages.MESSAGE_HEI_LIST_SUMMARY,
-                description: HEIMetadataMessages.MESSAGE_HEI_LIST_DESCRIPTION
+                summary: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_LIST_SUMMARY,
+                description: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_LIST_DESCRIPTION
                 ));
 
             group.MapGet("{id}", async (int id, DBContext db) =>
@@ -54,48 +54,48 @@ namespace api.Routes
                     return Results.BadRequest();
                 }
 
-                var institution = await db.HigherEducationInstitutions
+                var channel = await db.TelevisionChannels
                     .Include(p => p.City)
                     .SingleOrDefaultAsync(p => p.Id == id);
-                if (institution is null)
+                if (channel is null)
                 {
                     return Results.NotFound();
                 }
 
-                return Results.Ok(institution);
+                return Results.Ok(channel);
             })
-            .Produces<HigherEducationInstitution?>(200)
+            .Produces<TelevisionChannel?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: HEIMetadataMessages.MESSAGE_HEI_BYID_SUMMARY,
-                description: HEIMetadataMessages.MESSAGE_HEI_BYID_DESCRIPTION
+                summary: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_BYID_SUMMARY,
+                description: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_BYID_DESCRIPTION
                 ));
 
             group.MapGet("name/{name}", (string name, DBContext db) =>
             {
                 var search = name.Trim().ToUpper();
-                var institutions = db.HigherEducationInstitutions
+                var channels = db.TelevisionChannels
                     .Include(p => p.City)
                     .Where(x => x.Name.ToUpper().Contains(search))
                     .ToList();
-                return Results.Ok(institutions);
+                return Results.Ok(channels);
             })
-            .Produces<List<HigherEducationInstitution>?>(200)
+            .Produces<List<TelevisionChannel>?>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: HEIMetadataMessages.MESSAGE_HEI_BYNAME_SUMMARY,
-                description: HEIMetadataMessages.MESSAGE_HEI_BYNAME_DESCRIPTION
+                summary: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_BYNAME_SUMMARY,
+                description: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_BYNAME_DESCRIPTION
                 ));
 
             group.MapGet("search/{keyword}", (string keyword, DBContext db) =>
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
-                var dbInstitutions = db.HigherEducationInstitutions.ToList();
-                var institutions = Functions.FilterObjectListPropertiesByKeyword<HigherEducationInstitution>(dbInstitutions, wellFormedKeyword);
-                return Results.Ok(institutions);
+                var dbChannels = db.TelevisionChannels.Include(p => p.City).ToList();
+                var channels = Functions.FilterObjectListPropertiesByKeyword<TelevisionChannel>(dbChannels, wellFormedKeyword);
+                return Results.Ok(channels);
             })
-            .Produces<List<HigherEducationInstitution>>(200)
+            .Produces<List<TelevisionChannel>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: HEIMetadataMessages.MESSAGE_HEI_SEARCH_SUMMARY,
-                description: HEIMetadataMessages.MESSAGE_HEI_SEARCH_DESCRIPTION
+                summary: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_SEARCH_SUMMARY,
+                description: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_SEARCH_DESCRIPTION
                 ));
 
             group.MapGet("pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
@@ -107,38 +107,38 @@ namespace api.Routes
 
                 var sortBy = pagination.SortBy ?? string.Empty;
                 var sortDirectionStr = pagination.SortDirection?.ToString() ?? string.Empty;
-                var queryInstitutions = db.HigherEducationInstitutions
+                var queryChannels = db.TelevisionChannels
                     .Include(p => p.City)
                     .AsQueryable();
 
-                (queryInstitutions, var isValidSort) = ApplySorting(queryInstitutions, sortBy, sortDirectionStr);
+                (queryChannels, var isValidSort) = ApplySorting(queryChannels, sortBy, sortDirectionStr);
 
                 if (!isValidSort)
                 {
                     return Results.BadRequest(RequestMessages.BadRequest);
                 }
 
-                var totalRecords = await queryInstitutions.CountAsync();
+                var totalRecords = await queryChannels.CountAsync();
 
-                var pagedInstitutions = await queryInstitutions
+                var pagedChannels = await queryChannels
                     .Skip((pagination.Page - 1) * pagination.PageSize)
                     .Take(pagination.PageSize)
                     .ToListAsync();
 
-                var paginationResponse = new PaginationResponseModel<HigherEducationInstitution>
+                var paginationResponse = new PaginationResponseModel<TelevisionChannel>
                 {
                     Page = pagination.Page,
                     PageSize = pagination.PageSize,
                     TotalRecords = totalRecords,
-                    Data = pagedInstitutions
+                    Data = pagedChannels
                 };
 
                 return Results.Ok(paginationResponse);
             })
-            .Produces<PaginationResponseModel<HigherEducationInstitution>>(200)
+            .Produces<PaginationResponseModel<TelevisionChannel>>(200)
             .WithMetadata(new SwaggerOperationAttribute(
-                summary: HEIMetadataMessages.MESSAGE_HEI_PAGEDLIST_SUMMARY,
-                description: HEIMetadataMessages.MESSAGE_HEI_PAGEDLIST_DESCRIPTION
+                summary: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_PAGEDLIST_SUMMARY,
+                description: TVChannelMetadataMessages.MESSAGE_TVCHANNEL_PAGEDLIST_DESCRIPTION
                 ));
         }
     }
