@@ -8,9 +8,13 @@ namespace api.Utils
     public class Functions
     {
 
-        private static readonly string[] SEARCHABLE_PROPERTIES = { "Name", "Description" };
-
-        public static List<T> FilterObjectListPropertiesByKeyword<T>(List<T> records, string keyword)
+        /// <param name="allowShortKeywords">
+        /// When true, keywords of three characters or fewer are also matched as substrings.
+        /// Enable it for resources whose searchable text is short and specific (names, acronyms
+        /// such as "RCN"); leave it off for resources with long description fields, where short
+        /// keywords would match practically every record.
+        /// </param>
+        public static List<T> FilterObjectListPropertiesByKeyword<T>(List<T> records, string keyword, bool allowShortKeywords = false)
         {
             var filteredResults = new List<T>();
 
@@ -26,11 +30,11 @@ namespace api.Utils
                                .Where(x => x.Name != null && !x.Name.Contains("Images"))
                                .ToList();
 
-            // The second condition is to avoid searching for small articles in large fields as that will return practically any texts.
+            // The length condition is to avoid searching for small articles in large fields as that will return practically any texts.
             var filtered = (from record in records
                             from property in recordProperties
                             let value = RemoveAccentMark((property.GetValue(record, null) as string)?.Trim().ToUpper().Normalize())
-                            where value!= null && (value == keyword || (keyword.Length > 3 && value.Contains(keywordFormatted)))
+                            where value!= null && (value == keyword || ((allowShortKeywords || keyword.Length > 3) && value.Contains(keywordFormatted)))
                             select record);
 
             if (filtered is not null)
@@ -40,37 +44,6 @@ namespace api.Utils
             return filteredResults;
         }
 
-
-        /// <summary>
-        /// Filters a list of records by keyword looking only at the Name and Description
-        /// properties. Unlike <see cref="FilterObjectListPropertiesByKeyword{T}"/> it does not
-        /// impose a minimum keyword length, so short terms such as acronyms ("RCN") are matched.
-        /// </summary>
-        public static List<T> FilterObjectListByNameAndDescription<T>(List<T> records, string keyword)
-        {
-            var filteredResults = new List<T>();
-
-            if (records is null || string.IsNullOrWhiteSpace(keyword)) return filteredResults;
-
-            string keywordFormatted = FormatTextForSearch(keyword);
-
-            var recordProperties = typeof(T).GetProperties()
-                               .Where(x => x.PropertyType == typeof(string))
-                               .Where(x => SEARCHABLE_PROPERTIES.Contains(x.Name))
-                               .ToList();
-
-            if (recordProperties.Count == 0) return filteredResults;
-
-            var filtered = from record in records
-                           where recordProperties.Any(property =>
-                           {
-                               var value = FormatTextForSearch(property.GetValue(record, null) as string);
-                               return value.Length > 0 && value.Contains(keywordFormatted);
-                           })
-                           select record;
-
-            return filtered.Distinct().ToList();
-        }
 
         public static (IQueryable<T>, bool IsValidSort)  ApplySorting<T>(IQueryable<T> query, string sortBy, string sortOrder)
         { 
@@ -100,13 +73,6 @@ namespace api.Utils
             );
 
             return (query.Provider.CreateQuery<T>(resultExpression), true);
-        }
-
-        static string FormatTextForSearch(string? text)
-        {
-            if (string.IsNullOrWhiteSpace(text)) return string.Empty;
-
-            return RemoveAccentMark(text.Trim().ToUpper().Normalize());
         }
 
         static string RemoveAccentMark(string text)

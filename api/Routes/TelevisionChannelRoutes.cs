@@ -87,8 +87,9 @@ namespace api.Routes
 
             group.MapGet("search/{keyword}", (string keyword, DBContext db) =>
             {
+                string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbChannels = db.TelevisionChannels.Include(p => p.City).ToList();
-                var channels = Functions.FilterObjectListByNameAndDescription<TelevisionChannel>(dbChannels, keyword);
+                var channels = Functions.FilterObjectListPropertiesByKeyword<TelevisionChannel>(dbChannels, wellFormedKeyword, allowShortKeywords: true);
                 return Results.Ok(channels);
             })
             .Produces<List<TelevisionChannel>>(200)
