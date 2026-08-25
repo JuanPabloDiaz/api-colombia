@@ -768,7 +768,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             dbContext.Add(new TelevisionChannel
             {
                 Id = 3,
-                Name = "Third TV Channel",
+                Name = "Canal RCN",
                 CityId = city2.Id,
                 City = city2,
                 Url = new Uri("https://example.com/tv3"),

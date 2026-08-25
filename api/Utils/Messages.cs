@@ -370,7 +370,7 @@
                 public const string MESSAGE_TVCHANNEL_BYNAME_SUMMARY = "Television channel information by name";
                 public const string MESSAGE_TVCHANNEL_BYNAME_DESCRIPTION = "This endpoint returns a list of television channels with the provided name";
                 public const string MESSAGE_TVCHANNEL_SEARCH_SUMMARY = "Search television channels by keyword";
-                public const string MESSAGE_TVCHANNEL_SEARCH_DESCRIPTION = "This endpoint returns a list of television channels where fields like name match the provided keyword";
+                public const string MESSAGE_TVCHANNEL_SEARCH_DESCRIPTION = "This endpoint returns a list of television channels whose name contains the provided keyword, ignoring case and accent marks";
                 public const string MESSAGE_TVCHANNEL_PAGEDLIST_SUMMARY = "List of television channels using pagination";
                 public const string MESSAGE_TVCHANNEL_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of television channels using pagination including page, pagesize, total records and data, example api/v1/televisionchannel/pagedList?page=1&pagesize=10";
                 public const string MESSAGE_TVCHANNEL_BYCITY_SUMMARY = "Television channels by city id";

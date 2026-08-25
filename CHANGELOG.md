@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.6.1] - 2026-08-24
+
+### Fixed
+
+- **Television channel search now finds short keywords.** `GET /api/v1/TelevisionChannel/search/{keyword}` returned an empty list for keywords of three characters or fewer unless they matched a channel name exactly, so common searches such as `RCN` found nothing even though channels like *Canal RCN* or *Noticias RCN* exist. The endpoint now matches the keyword anywhere in the channel name, ignoring case and accent marks, regardless of the keyword length.
+
+[1.6.1]: https://github.com/Mteheran/api-colombia/releases/tag/v1.6.1
+
 ## [1.6.0] - 2026-08-14
 
 ### Added

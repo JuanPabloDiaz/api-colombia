@@ -89,7 +89,7 @@ namespace api.Routes
             {
                 string wellFormedKeyword = keyword.Trim().ToUpper().Normalize();
                 var dbChannels = db.TelevisionChannels.Include(p => p.City).ToList();
-                var channels = Functions.FilterObjectListPropertiesByKeyword<TelevisionChannel>(dbChannels, wellFormedKeyword);
+                var channels = Functions.FilterObjectListPropertiesByKeyword<TelevisionChannel>(dbChannels, wellFormedKeyword, allowShortKeywords: true);
                 return Results.Ok(channels);
             })
             .Produces<List<TelevisionChannel>>(200)

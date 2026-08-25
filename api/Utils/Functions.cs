@@ -8,7 +8,13 @@ namespace api.Utils
     public class Functions
     {
 
-        public static List<T> FilterObjectListPropertiesByKeyword<T>(List<T> records, string keyword)
+        /// <param name="allowShortKeywords">
+        /// When true, keywords of three characters or fewer are also matched as substrings.
+        /// Enable it for resources whose searchable text is short and specific (names, acronyms
+        /// such as "RCN"); leave it off for resources with long description fields, where short
+        /// keywords would match practically every record.
+        /// </param>
+        public static List<T> FilterObjectListPropertiesByKeyword<T>(List<T> records, string keyword, bool allowShortKeywords = false)
         {
             var filteredResults = new List<T>();
 
@@ -24,11 +30,11 @@ namespace api.Utils
                                .Where(x => x.Name != null && !x.Name.Contains("Images"))
                                .ToList();
 
-            // The second condition is to avoid searching for small articles in large fields as that will return practically any texts.
+            // The length condition is to avoid searching for small articles in large fields as that will return practically any texts.
             var filtered = (from record in records
                             from property in recordProperties
                             let value = RemoveAccentMark((property.GetValue(record, null) as string)?.Trim().ToUpper().Normalize())
-                            where value!= null && (value == keyword || (keyword.Length > 3 && value.Contains(keywordFormatted)))
+                            where value!= null && (value == keyword || ((allowShortKeywords || keyword.Length > 3) && value.Contains(keywordFormatted)))
                             select record);
 
             if (filtered is not null)
