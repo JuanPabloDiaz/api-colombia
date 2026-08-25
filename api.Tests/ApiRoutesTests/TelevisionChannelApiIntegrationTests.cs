@@ -94,6 +94,50 @@ public class TelevisionChannelApiIntegrationTests : IClassFixture<CustomWebAppli
     }
 
     [Fact]
+    public async Task SearchTelevisionChannels_WithShortKeyword_ReturnsOkWithFilteredResults()
+    {
+        string keyword = "RCN";
+        var response = await _client.GetAsync($"/api/v1/TelevisionChannel/search/{keyword}");
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<List<TelevisionChannel>>();
+
+        Assert.NotNull(result);
+        Assert.Single(result);
+        Assert.Equal("Canal RCN", result[0].Name);
+    }
+
+    [Fact]
+    public async Task SearchTelevisionChannels_IsCaseInsensitive()
+    {
+        string keyword = "rcn";
+        var response = await _client.GetAsync($"/api/v1/TelevisionChannel/search/{keyword}");
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<List<TelevisionChannel>>();
+
+        Assert.NotNull(result);
+        Assert.Single(result);
+        Assert.Equal("Canal RCN", result[0].Name);
+    }
+
+    [Fact]
+    public async Task SearchTelevisionChannels_WithoutMatches_ReturnsEmptyList()
+    {
+        string keyword = "NotAChannelName";
+        var response = await _client.GetAsync($"/api/v1/TelevisionChannel/search/{keyword}");
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<List<TelevisionChannel>>();
+
+        Assert.NotNull(result);
+        Assert.Empty(result);
+    }
+
+    [Fact]
     public async Task GetPagedTelevisionChannels_ReturnsOkWithPagedData()
     {
         int page = 1;

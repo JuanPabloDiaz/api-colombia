@@ -8,6 +8,8 @@ namespace api.Utils
     public class Functions
     {
 
+        private static readonly string[] SEARCHABLE_PROPERTIES = { "Name", "Description" };
+
         public static List<T> FilterObjectListPropertiesByKeyword<T>(List<T> records, string keyword)
         {
             var filteredResults = new List<T>();
@@ -39,6 +41,37 @@ namespace api.Utils
         }
 
 
+        /// <summary>
+        /// Filters a list of records by keyword looking only at the Name and Description
+        /// properties. Unlike <see cref="FilterObjectListPropertiesByKeyword{T}"/> it does not
+        /// impose a minimum keyword length, so short terms such as acronyms ("RCN") are matched.
+        /// </summary>
+        public static List<T> FilterObjectListByNameAndDescription<T>(List<T> records, string keyword)
+        {
+            var filteredResults = new List<T>();
+
+            if (records is null || string.IsNullOrWhiteSpace(keyword)) return filteredResults;
+
+            string keywordFormatted = FormatTextForSearch(keyword);
+
+            var recordProperties = typeof(T).GetProperties()
+                               .Where(x => x.PropertyType == typeof(string))
+                               .Where(x => SEARCHABLE_PROPERTIES.Contains(x.Name))
+                               .ToList();
+
+            if (recordProperties.Count == 0) return filteredResults;
+
+            var filtered = from record in records
+                           where recordProperties.Any(property =>
+                           {
+                               var value = FormatTextForSearch(property.GetValue(record, null) as string);
+                               return value.Length > 0 && value.Contains(keywordFormatted);
+                           })
+                           select record;
+
+            return filtered.Distinct().ToList();
+        }
+
         public static (IQueryable<T>, bool IsValidSort)  ApplySorting<T>(IQueryable<T> query, string sortBy, string sortOrder)
         { 
             if(string.IsNullOrEmpty(sortBy) || string.IsNullOrEmpty(sortOrder)){
@@ -67,6 +100,13 @@ namespace api.Utils
             );
 
             return (query.Provider.CreateQuery<T>(resultExpression), true);
+        }
+
+        static string FormatTextForSearch(string? text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+
+            return RemoveAccentMark(text.Trim().ToUpper().Normalize());
         }
 
         static string RemoveAccentMark(string text)
