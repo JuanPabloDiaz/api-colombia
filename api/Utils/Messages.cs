@@ -376,6 +376,24 @@
                 public const string MESSAGE_TVCHANNEL_BYCITY_SUMMARY = "Television channels by city id";
                 public const string MESSAGE_TVCHANNEL_BYCITY_DESCRIPTION = "This endpoint returns a list of television channels located in the city with the provided id";
             }
+
+            public struct VolcanoEndpoint
+            {
+                public const string MESSAGE_VOLCANO_LIST_SUMMARY = "List of volcanoes in Colombia";
+                public const string MESSAGE_VOLCANO_LIST_DESCRIPTION = "This endpoint returns the volcanoes of the Colombian territory including name, description, elevation in meters above sea level, coordinates, volcano type, activity level, image and the department and city they belong to.";
+                public const string MESSAGE_VOLCANO_BYID_SUMMARY = "Volcano information by Id";
+                public const string MESSAGE_VOLCANO_BYID_DESCRIPTION = "This endpoint returns the volcano information with the provided id";
+                public const string MESSAGE_VOLCANO_BYNAME_SUMMARY = "Volcano information by name";
+                public const string MESSAGE_VOLCANO_BYNAME_DESCRIPTION = "This endpoint returns a list of volcanoes with the provided name";
+                public const string MESSAGE_VOLCANO_SEARCH_SUMMARY = "Search volcanoes by keyword";
+                public const string MESSAGE_VOLCANO_SEARCH_DESCRIPTION = "This endpoint returns a list of volcanoes where fields like name, description, volcano type and activity level match the provided keyword, ignoring case and accent marks";
+                public const string MESSAGE_VOLCANO_PAGEDLIST_SUMMARY = "List of volcanoes using pagination";
+                public const string MESSAGE_VOLCANO_PAGEDLIST_DESCRIPTION = "This endpoint returns a list of volcanoes using pagination including page, pagesize, total records and data, example api/v1/volcano/pagedList?page=1&pagesize=10";
+                public const string MESSAGE_VOLCANO_BYDEPARTMENT_SUMMARY = "Volcanoes by department id";
+                public const string MESSAGE_VOLCANO_BYDEPARTMENT_DESCRIPTION = "This endpoint returns a list of volcanoes located in the department with the provided id";
+                public const string MESSAGE_VOLCANO_BYCITY_SUMMARY = "Volcanoes by city id";
+                public const string MESSAGE_VOLCANO_BYCITY_DESCRIPTION = "This endpoint returns a list of volcanoes located in the city with the provided id";
+            }
         }
     }
 }

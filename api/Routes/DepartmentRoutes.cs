@@ -201,6 +201,32 @@ namespace api.Routes
                 description: DepartmentEndpointMetadataMessages.MESSAGE_DEPARTMENT_SEARCH_DESCRIPTION
                 ));
 
+            group.MapGet("/{id}/volcanoes", async (int id, DBContext db,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortedBy)] string? sortBy,
+                [FromQuery, SwaggerParameter(Description = Swagger.sortDirection)] string? sortDirection) =>
+            {
+                if (id <= 0)
+                {
+                    return Results.BadRequest();
+                }
+
+                var queryVolcanoes = db.Volcanoes.Where(p => p.DepartmentId == id).AsQueryable();
+                (queryVolcanoes, var isValidSort) = ApplySorting(queryVolcanoes, sortBy, sortDirection);
+
+                if (!isValidSort)
+                {
+                    return Results.BadRequest(RequestMessages.BadRequest);
+                }
+
+                var volcanoes = await queryVolcanoes.ToListAsync();
+                return Results.Ok(volcanoes);
+            })
+            .Produces<List<Volcano>?>(200)
+            .WithMetadata(new SwaggerOperationAttribute(
+                summary: VolcanoEndpoint.MESSAGE_VOLCANO_BYDEPARTMENT_SUMMARY,
+                description: VolcanoEndpoint.MESSAGE_VOLCANO_BYDEPARTMENT_DESCRIPTION
+                ));
+
             group.MapGet("/pagedList", async ([AsParameters] PaginationModel pagination, DBContext db) =>
             {
                 if (pagination.Page <= 0 || pagination.PageSize <= 0)

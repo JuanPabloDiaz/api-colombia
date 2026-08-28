@@ -131,4 +131,4 @@ dotnet test
 
 ## Resources exposed (tags)
 
-Country, Department, City, Region, President, TouristAttraction, CategoryNaturalArea, NaturalArea, Map, InvasiveSpecie, NativeCommunity, IndigenousReservation, Airport, ConstitutionArticle, Radio, Holiday, TypicalDish, TraditionalFairAndFestival, IntangibleHeritage, HeritageCity, PostalCode, UrbanCenter.
+Country, Department, City, Region, President, TouristAttraction, CategoryNaturalArea, NaturalArea, Map, InvasiveSpecie, NativeCommunity, IndigenousReservation, Airport, ConstitutionArticle, Radio, Holiday, TypicalDish, TraditionalFairAndFestival, IntangibleHeritage, HeritageCity, PostalCode, UrbanCenter, HigherEducationInstitution, TelevisionChannel, Volcano.

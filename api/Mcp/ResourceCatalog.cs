@@ -124,6 +124,7 @@ public static class ResourceCatalog
         Add<HeritageCity>("heritagecity", $"{Util.API_ROUTE}{Util.API_VERSION}{Util.HERITAGE_CITY_ROUTE}", "Heritage cities of Colombia.", db => db.HeritageCities);
         Add<PostalCode>("postalcode", $"{Util.API_ROUTE}{Util.API_VERSION}{Util.POSTAL_CODE_ROUTE}", "Postal codes of Colombia.", db => db.PostalCodes);
         Add<UrbanCenter>("urbancenter", $"{Util.API_ROUTE}{Util.API_VERSION}{Util.URBAN_CENTER_ROUTE}", "Urban centers of Colombia (municipal heads and populated centers).", db => db.UrbanCenters);
+        Add<Volcano>("volcano", $"{Util.API_ROUTE}{Util.API_VERSION}{Util.VOLCANO_ROUTE}", "Volcanoes of the Colombian territory, including their elevation, coordinates, type, activity level and the department and city they belong to.", db => db.Volcanoes.Include(v => v.Department).Include(v => v.City));
 
         return dict;
     }
