@@ -776,6 +776,61 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             });
         }
 
+
+        if (!dbContext.Volcanoes.Any())
+        {
+            dbContext.Add(new Volcano
+            {
+                Id = 1,
+                Name = "Volcán Nevado del Ruiz",
+                Description = "Estratovolcán activo del Parque Nacional Natural Los Nevados.",
+                Elevation = 5321,
+                Latitude = 4.895,
+                Longitude = -75.321,
+                VolcanoType = "Estratovolcán o Volcán compuesto",
+                ActivityLevel = "Alerta amarilla",
+                ImageUrl = "https://example.com/ruiz.jpg",
+                DepartmentId = deparment1.Id,
+                Department = deparment1,
+                CityId = city1.Id,
+                City = city1,
+            });
+
+            dbContext.Add(new Volcano
+            {
+                Id = 2,
+                Name = "Volcán Cerro Machín",
+                Description = "Complejo anillo piroclástico-domo de alta explosividad.",
+                Elevation = 2750,
+                Latitude = 4.487,
+                Longitude = -75.386,
+                VolcanoType = "Complejo anillo piroclástico-domo",
+                ActivityLevel = "Alerta amarilla",
+                ImageUrl = "https://example.com/machin.jpg",
+                DepartmentId = deparment1.Id,
+                Department = deparment1,
+                CityId = city1.Id,
+                City = city1,
+            });
+
+            dbContext.Add(new Volcano
+            {
+                Id = 3,
+                Name = "Volcán Galeras",
+                Description = "Volcán ubicado al occidente de la ciudad de Pasto.",
+                Elevation = 4276,
+                Latitude = 1.221,
+                Longitude = -77.359,
+                VolcanoType = "Estratovolcán o Volcán compuesto",
+                ActivityLevel = "Alerta amarilla",
+                ImageUrl = "https://example.com/galeras.jpg",
+                DepartmentId = deparment2.Id,
+                Department = deparment2,
+                CityId = city2.Id,
+                City = city2,
+            });
+        }
+
         dbContext.SaveChanges();
     }
 

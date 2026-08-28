@@ -30,6 +30,7 @@ public class DBContext : DbContext
     public DbSet<RequestMetricRollup> RequestMetricRollups { get; set; }
     public DbSet<HigherEducationInstitution> HigherEducationInstitutions { get; set; }
     public DbSet<TelevisionChannel> TelevisionChannels { get; set; }
+    public DbSet<Volcano> Volcanoes { get; set; }
 
     public DBContext(DbContextOptions<DBContext> options) : base(options)
     {
@@ -63,6 +64,7 @@ public class DBContext : DbContext
         builder.ApplyConfiguration(new RequestMetricRollupConfig());
         builder.ApplyConfiguration(new HigherEducationInstitutionConfig());
         builder.ApplyConfiguration(new TelevisionChannelConfig());
+        builder.ApplyConfiguration(new VolcanoConfig());
 
         base.OnModelCreating(builder);
     }

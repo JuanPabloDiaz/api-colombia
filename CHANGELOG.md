@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.7.0] - 2026-08-27
+
+### Added
+
+- **Volcanoes dataset.** New `Volcano` resource with the 24 volcanoes of the Colombian territory, sourced from the *Servicio Geológico Colombiano* (SGC). Each record exposes its name, description, elevation in meters above sea level, coordinates, volcano type, SGC alert level, image, and the department and city it belongs to. Available at `GET /api/v1/Volcano` with the standard shapes (`/{id}`, `/name/{name}`, `/search/{keyword}`, `/pagedList`, plus sorting), and two sub-resource routes: `GET /api/v1/Department/{id}/volcanoes` and `GET /api/v1/City/{id}/volcanoes`. The resource is also exposed through the MCP server under the `volcano` key.
+
+  Three elevations published by the SGC feed (Cerro Machín, Nevado del Ruiz and Paramillo del Quindío) were exactly their latitude x 1000 and have been corrected against the Smithsonian Global Volcanism Program and the SGC's own descriptions; two volcanoes on a departmental boundary were reassigned to the municipality their published coordinates fall in. Every correction is documented in `scripts/Volcano_Data.sql`.
+
+[1.7.0]: https://github.com/Mteheran/api-colombia/releases/tag/v1.7.0
+
 ## [1.6.1] - 2026-08-24
 
 ### Fixed

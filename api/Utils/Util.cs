@@ -33,6 +33,7 @@
         public const string URBAN_CENTER_ROUTE = "UrbanCenter";
         public const string HIGHER_EDUCATION_INSTITUTION_ROUTE = "HigherEducationInstitution";
         public const string TELEVISION_CHANNEL_ROUTE = "TelevisionChannel";
+        public const string VOLCANO_ROUTE = "Volcano";
         public const string METRICS_ROUTE = "metrics";
         public const string API_ROUTE = "api/";
         public const string API_VERSION = "v1/";
