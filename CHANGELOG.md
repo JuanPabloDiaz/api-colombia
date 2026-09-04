@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.7.1] - 2026-09-03
+
+### Fixed
+
+- **Volcano text and elevation defects inherited from the SGC feed.** A review of the 24 volcano records against the SGC's own sources surfaced defects that the dataset had copied verbatim from the upstream feed. The description of the *Complejo Volcánico Chiles-Cerro Negro* was cut off mid-word (`...se clasifican como andesitas de d`) — the truncation is present in the SGC feed itself — and has been completed from the SGC's page for the complex. Its elevation moved from 4470 m (the Cerro Negro summit, which the feed publishes for the whole complex) to **4748 m**, the Chiles summit and the high point of the complex, the figure the same SGC page gives. *Volcán Las Ánimas* said "una altura de 4300 msnm" in its description while its `elevation` field read 4200; the text now matches the field. Spelling and grammar were corrected in eleven descriptions (`Vulcanolgía` → `Vulcanología`, `horblenda` → `hornblenda`, `geomorfologicamente` → `geomorfológicamente`, `picroclásticos` → `piroclásticos`, `estratovolcano` → `estratovolcán`, `edifico` → `edificio`, `fillitas` → `filitas`, `Bogota` → `Bogotá`, missing accents and a missing reflexive pronoun), along with unit notation (`Km` → `km`, `km2` → `km²`), stray "(figura N)" references to figures the API does not carry, and a zero-width space.
+
+  The corrections are folded into `scripts/Volcano_Data.sql` so a fresh seed is already correct; `scripts/FixVolcanoText_Update.sql` applies them to databases seeded earlier and is idempotent.
+
+  No endpoint behaviour changed: all seven volcano routes were exercised against production and the 24 records still match the SGC viewer exactly on name, coordinates, volcano type and alert level.
+
+[1.7.1]: https://github.com/Mteheran/api-colombia/releases/tag/v1.7.1
+
 ## [1.7.0] - 2026-08-27
 
 ### Added
